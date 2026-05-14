@@ -6,12 +6,16 @@ fetch('../posts.json')
     document.getElementById('posts').innerHTML =
       posts.map(p => `
         <div class="post">
-          <img src="${p.image}" style="width:100%; border-radius:10px;">
+          <img src="${p.image}" loading="lazy">
           <h2>${p.title}</h2>
           <p>${p.desc}</p>
           <a href="post.html?slug=${p.slug}">Ler mais</a>
         </div>
       `).join('');
 
+  })
+  .catch(() => {
+    document.getElementById('posts').innerHTML =
+      "<p>Erro ao carregar posts</p>";
   });
 </script>
