@@ -1,56 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog Nova Chance 360</title>
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #1E272E;
-  color: white;
-  margin: 0;
-  padding: 20px;
-}
-
-h1 {
-  text-align: center;
-  color: gold;
-}
-
-.post {
-  background: #0A0A0A;
-  padding: 20px;
-  margin: 15px 0;
-  border-left: 4px solid gold;
-}
-a {
-  color: gold;
-  text-decoration: none;
-}
-</style>
-</head>
-
-<body>
-
-<h1>Blog Nova Chance 360</h1>
-
-<div id="posts"></div>
-
 <script>
 fetch('../posts.json')
   .then(res => res.json())
   .then(posts => {
+
     document.getElementById('posts').innerHTML =
       posts.map(p => `
         <div class="post">
+          <img src="${p.image}" style="width:100%; border-radius:10px;">
           <h2>${p.title}</h2>
           <p>${p.desc}</p>
+          <a href="post.html?slug=${p.slug}">Ler mais</a>
         </div>
       `).join('');
+
   });
 </script>
-
-</body>
-</html>
