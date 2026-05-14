@@ -7,11 +7,17 @@ fetch('../posts.json')
 
     const post = posts.find(p => p.slug === slug);
 
+    if (!post) {
+      document.body.innerHTML = "<h1>Post não encontrado</h1>";
+      return;
+    }
+
+    document.title = post.title;
+
     document.body.innerHTML = `
       <h1>${post.title}</h1>
-      <img src="${post.image}" style="width:100%;">
+      <img src="${post.image}" loading="lazy" style="width:100%;">
       <p>${post.content}</p>
     `;
-
   });
 </script>
