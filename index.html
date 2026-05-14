@@ -1,23 +1,14 @@
-<script>
-fetch('/posts.json')
-  .then(res => res.json())
-  .then(posts => {
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nova Chance 360</title>
+</head>
+<body style="font-family: Arial; padding: 40px; background:#111; color:white;">
 
-    const container = document.getElementById('posts');
+  <h1>Site funcionando ✅</h1>
+  <p>Se você está vendo isso, o GitHub Pages está OK.</p>
 
-    container.innerHTML = posts.map(p => `
-      <div class="post">
-        <img src="${p.image || 'https://via.placeholder.com/600x300'}" loading="lazy">
-        <h2>${p.title}</h2>
-        <p>${p.desc || ''}</p>
-        <a href="post.html?slug=${p.slug || ''}">Ler mais</a>
-      </div>
-    `).join('');
+  <a href="blog.html" style="color:yellow;">Ir para o blog</a>
 
-  })
-  .catch(err => {
-    console.log(err);
-    document.getElementById('posts').innerHTML =
-      "<p>Erro ao carregar posts</p>";
-  });
-</script>
+</body>
+</html>
