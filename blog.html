@@ -12,19 +12,60 @@
         .logo { font-family: 'Cinzel'; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold; font-size: 1.5rem; text-decoration: none; }
         .container { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
         h1 { font-family: 'Cinzel'; color: var(--ouro); text-align: center; font-size: 2.5rem; margin-bottom: 50px; }
-        
-        /* GRID DE ARTIGOS */
-        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .post-card { background: var(--preto); border: 1px solid #333; text-decoration: none; color: white; transition: 0.4s; border-bottom: 4px solid var(--ouro); display: flex; flex-direction: column; }
-        .post-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .post-content { padding: 30px; }
-        .post-content h2 { font-family: 'Cinzel'; color: var(--ouro); font-size: 1.1rem; margin: 0 0 15px 0; line-height: 1.4; }
-        .post-content p { font-size: 0.85rem; color: #aaa; margin-bottom: 20px; line-height: 1.6; }
-        .read-more { font-weight: bold; color: var(--ouro); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
 
-        footer { text-align: center; padding: 60px; color: #444; border-top: 1px solid #333; margin-top: 80px; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+
+        .post-card {
+            background: var(--preto);
+            border: 1px solid #333;
+            text-decoration: none;
+            color: white;
+            transition: 0.4s;
+            border-bottom: 4px solid var(--ouro);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .post-content { padding: 30px; }
+
+        .post-content h2 {
+            font-family: 'Cinzel';
+            color: var(--ouro);
+            font-size: 1.1rem;
+            margin: 0 0 15px 0;
+            line-height: 1.4;
+        }
+
+        .post-content p {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            font-weight: bold;
+            color: var(--ouro);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            color: #444;
+            border-top: 1px solid #333;
+            margin-top: 80px;
+        }
     </style>
 </head>
+
 <body>
     <header>
         <a href="index.html" class="logo">NOVA CHANCE 360</a>
@@ -32,34 +73,37 @@
 
     <div class="container">
         <h1>INTELIGÊNCIA FINANCEIRA</h1>
-        
-        <div class="blog-grid">
-            <!-- POST 01 -->
-         <a href="/novachance360/post-2026-05-14-14-16.html">
-                <div class="post-content">
-                    <h2>O Histórico Oculto: Por que seu gerente nunca mencionou o Registrato?</h2>
-                    <p>Descubra como os bancos mantêm uma "lista negra" interna que impede seu financiamento mesmo com nome limpo...</p>
-                    <span class="read-more">Acessar Inteligência →</span>
-                </div>
-            </a>
 
-            <!-- POST 02 -->
-          <a href="/novachance360/post-2026-05-14-14-22.html">
-                <div class="post-content">
-                    <h2>A Mentira do Score: Por que ter 900 pontos não te garante crédito?</h2>
-                    <p>Entenda a diferença entre o score público e o rating interno que os bancos privados usam para te julgar...</p>
-                    <span class="read-more">Acessar Inteligência →</span>
-                </div>
-            </a>
-
-            <!-- O n8n vai colocar novos posts aqui -->
-        </div>
+        <!-- BLOG AUTOMÁTICO -->
+        <div class="blog-grid" id="blog"></div>
     </div>
 
     <footer>&copy; 2024 Nova Chance 360 - Estratégia de Elite.</footer>
+
     <div style="margin-top: 20px; font-size: 0.7rem; opacity: 0.5; text-align: center;">
-    <a href="privacidade.html" style="color: #fff; margin: 0 10px; text-decoration: none;">Política de Privacidade</a> | 
-    <a href="termos.html" style="color: #fff; margin: 0 10px; text-decoration: none;">Termos de Uso</a>
-</div>
+        <a href="privacidade.html" style="color: #fff; margin: 0 10px; text-decoration: none;">Política de Privacidade</a> |
+        <a href="termos.html" style="color: #fff; margin: 0 10px; text-decoration: none;">Termos de Uso</a>
+    </div>
+
+    <script>
+        async function loadBlog() {
+            const res = await fetch("./posts.json");
+            const posts = await res.json();
+
+            const container = document.getElementById("blog");
+
+            container.innerHTML = posts.map(p => `
+                <a href="./post.html?id=${p.id}" class="post-card">
+                    <div class="post-content">
+                        <h2>${p.title}</h2>
+                        <p>${p.desc}</p>
+                        <span class="read-more">Acessar Inteligência →</span>
+                    </div>
+                </a>
+            `).join("");
+        }
+
+        loadBlog();
+    </script>
 </body>
 </html>
